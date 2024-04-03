@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexGrow: 1,
+    right: 4
   },
   logoText: {
     fontSize: 23,
@@ -116,6 +117,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     top: 640,
+    right: 2
   },
   leftVectorImage: {
     bottom: 0,
