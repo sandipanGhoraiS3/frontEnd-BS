@@ -29,9 +29,49 @@ import ModalPopup from "../../Components/modelPopup";
 const LoginScreen = ({ navigation }) => {
   const [isVisible, setVisible] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  const [otpModalVisible, setOtpModalVisible] = useState(false);
 
   const toggleModal = () => {
     setShowModal(!showModal);
+  };
+  const toggleOtpModal = () => {
+    setOtpModalVisible(!otpModalVisible);
+  };
+
+  const handleGenerateOTP = () => {
+    toggleModal();
+    toggleOtpModal();
+  };
+  const handleVerifyOTP = () => {
+    // Add logic here to verify OTP
+
+    // Navigate back to login screen
+    toggleOtpModal();
+    navigation.navigate(navigationStrings.FORGETPASSWORD); // Assuming you have a route named 'LOGIN'
+  };
+
+  const OTPInputBox = () => {
+    return (
+      <TextInput
+        style={{
+          width: 50,
+          height: 50,
+          borderWidth: 1,
+          borderColor: "#CCCCCC",
+          fontSize: 20,
+          borderRadius: 6,
+          paddingLeft: 12,
+          paddingRight: 12,
+          paddingTop: 10,
+          paddingBottom: 10,
+          margin: 5,
+          backgroundColor: "#BFDED3",
+        }}
+        keyboardType="numeric"
+        maxLength={1}
+        // onChangeText={text => handleOTPInput(text)}
+      />
+    );
   };
 
   return (
@@ -82,8 +122,8 @@ const LoginScreen = ({ navigation }) => {
                 >
                   <Text style={styles.forgotText}>Forgot Password ?</Text>
                 </TouchableOpacity>
+                  <ButtonComp btnText={"Login"} />
 
-                <ButtonComp btnText={"Login"} />
               </View>
               <View style={styles.buttomVectorContainer}>
                 <Image
@@ -189,7 +229,7 @@ const LoginScreen = ({ navigation }) => {
               marginTop: 8,
               left: 1,
             }}
-            // onPress={onOpen2ndModal}
+            onPress={handleGenerateOTP}
           >
             <Text
               style={{
@@ -201,6 +241,90 @@ const LoginScreen = ({ navigation }) => {
               }}
             >
               Generate OTP
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </ModalPopup>
+      <ModalPopup visible={otpModalVisible} onClose={toggleOtpModal}>
+        <View style={{ alignItems: "center" }}>
+          <TouchableOpacity onPress={toggleOtpModal}>
+            <Image
+              source={require("../../assets/images/x.png")}
+              style={{
+                height: 20,
+                width: 20,
+                left: 122,
+                bottom: 10,
+                alignItems: "flex-end",
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+        <View style={{ alignItems: "center" }}>
+          <Image
+            source={require("../../assets/images/phoneNum.png")}
+            style={{
+              height: 80,
+              width: 80,
+              marginVertical: 10,
+              left: 8,
+              bottom: 30,
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          />
+        </View>
+        <Text
+          style={{
+            fontSize: 20,
+            textAlign: "center",
+            bottom: 30,
+            color: "#113832",
+            fontWeight: "bold",
+            justifyContent: "center",
+          }}
+        >
+          Enter your OTP
+        </Text>
+        <Text
+          style={{
+            fontSize: 12,
+            textAlign: "center",
+            bottom: 25,
+            color: "#113832",
+          }}
+        >
+          We have sent you a 4-digit OTP on your phone number
+        </Text>
+        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+          <OTPInputBox />
+          <OTPInputBox />
+          <OTPInputBox />
+          <OTPInputBox />
+        </View>
+        <View>
+          <TouchableOpacity
+            style={{
+              backgroundColor: "#03462F",
+              borderRadius: 6,
+              paddingVertical: 10,
+              paddingHorizontal: 20,
+              alignSelf: "center",
+              marginTop: 8,
+              left: 1,
+            }}
+            onPress={handleVerifyOTP}
+          >
+            <Text
+              style={{
+                fontSize: 13,
+                color: "white",
+                fontWeight: "bold",
+                textTransform: "uppercase",
+                padding: 3,
+              }}
+            >
+              Verify OTP
             </Text>
           </TouchableOpacity>
         </View>

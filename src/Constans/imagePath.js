@@ -7,6 +7,7 @@ export default {
     hideEye: require('../assets/images/hide.png'),
     userIcon: require('../assets/images/userIcon.png'),
     passwordIcon: require('../assets/images/Passwordkey.png'),
-    phoneIcon: require('../assets/images/PhoneVector.png')
+    phoneIcon: require('../assets/images/PhoneVector.png'),
+    lockIcon: require('../assets/images/lockVector.png')
 
 }

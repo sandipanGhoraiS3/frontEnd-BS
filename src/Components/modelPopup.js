@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Modal, View, Animated, StyleSheet } from 'react-native';
+import React, { useState, useEffect, useRef } from "react";
+import { Modal, View, Animated, StyleSheet } from "react-native";
 
 const ModalPopup = ({ visible, onClose, children }) => {
   const [showModal, setShowModal] = useState(visible);
@@ -31,7 +31,11 @@ const ModalPopup = ({ visible, onClose, children }) => {
     <Modal transparent visible={showModal} onRequestClose={onClose}>
       <View style={styles.modalBackGround}>
         <Animated.View
-          style={[styles.modalContainer, { transform: [{ scale: scaleValue }] }]}>
+          style={[
+            styles.modalContainer,
+            { transform: [{ scale: scaleValue }] },
+          ]}
+        >
           {children}
         </Animated.View>
       </View>
@@ -42,16 +46,25 @@ const ModalPopup = ({ visible, onClose, children }) => {
 const styles = StyleSheet.create({
   modalBackGround: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+    
   },
   modalContainer: {
-    width: '80%',
-    backgroundColor: 'white',
+    width: "80%",
+    backgroundColor: "white",
     paddingHorizontal: 20,
     paddingVertical: 20,
     borderRadius: 20,
+    elevation: 20,
+    shadowColor: "#8AC8B3",
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 10,
     elevation: 20,
   },
 });

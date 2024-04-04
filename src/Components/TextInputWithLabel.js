@@ -30,7 +30,7 @@ const TextInputWithLabel = ({
       {!!rightIcon ? (
         <TouchableOpacity activeOpacity={0.8} onPress={onPressRight}>
           <Image
-            style={{ right: 50, tintColor: "rgba(0, 0, 0, 0.4)" }}
+            style={{ right: 55, tintColor: "rgba(0, 0, 0, 0.4)" }}
             source={rightIcon}
           />
         </TouchableOpacity>
@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
     borderColor: "#CCCCCC",
     fontSize: 16,
     borderRadius: 6,
-    paddingLeft: 35,
-    paddingRight: 35,
+    paddingLeft: 45,
+    paddingRight: 40,
     paddingTop: 10,
     paddingBottom: 10,
     backgroundColor: "#BFDED3",
