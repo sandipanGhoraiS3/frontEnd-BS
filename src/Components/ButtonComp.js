@@ -7,7 +7,7 @@ import imagePath from "../Constans/imagePath";
 const ButtonComp = ({
   btnText,
   btnStyle = {},
-  onPress = () => {},
+  onPress = () => { },
   img,
   btnTextStyle = {},
 }) => {
@@ -47,5 +47,20 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
 });
+// const styles = StyleSheet.create({
+//   btnStyle: {
+//     height: moderateScale(48),
+//     backgroundColor: colors.themeColor,
+//     borderRadius: moderateScale(4),
+//     alignItems: "center",
+//     justifyContent: "center",
+//   },
+//   btnTextStyle: {
+//     fontSize: scale(12),
+//     color: "white",
+//     fontWeight: "bold",
+//     textTransform: "uppercase",
+//   },
+// });
 
 export default ButtonComp;

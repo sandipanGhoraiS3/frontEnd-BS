@@ -6,6 +6,7 @@ import navigationStrings from "../Constans/navigationStrings";
 import Login from "../Screens/Login/Login";
 import SignUp from "../Screens/SignUp/SignUp";
 import ForgetPassword from "../Screens/ForgetPassword/ForgetPassword";
+import Home from "../Screens/Home/Home";
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +16,8 @@ export default function AuthStack() {
       <Stack.Screen name={navigationStrings.LOGIN} component={Login} />
       <Stack.Screen name={navigationStrings.SIGNUP} component={SignUp} />
       <Stack.Screen name={navigationStrings.FORGETPASSWORD} component={ForgetPassword} />
+
+      <Stack.Screen name={navigationStrings.HOME} component={Home} />
     </Stack.Navigator>
   );
 }

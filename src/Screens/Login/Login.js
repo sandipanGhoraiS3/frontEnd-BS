@@ -47,26 +47,13 @@ const LoginScreen = ({ navigation }) => {
 
     // Navigate back to login screen
     toggleOtpModal();
-    navigation.navigate(navigationStrings.FORGETPASSWORD); // Assuming you have a route named 'LOGIN'
+    navigation.navigate(navigationStrings.FORGETPASSWORD);
   };
 
   const OTPInputBox = () => {
     return (
       <TextInput
-        style={{
-          width: 50,
-          height: 50,
-          borderWidth: 1,
-          borderColor: "#CCCCCC",
-          fontSize: 20,
-          borderRadius: 6,
-          paddingLeft: 12,
-          paddingRight: 12,
-          paddingTop: 10,
-          paddingBottom: 10,
-          margin: 5,
-          backgroundColor: "#BFDED3",
-        }}
+        style={styles.otpInputStyle}
         keyboardType="numeric"
         maxLength={1}
         // onChangeText={text => handleOTPInput(text)}
@@ -100,6 +87,10 @@ const LoginScreen = ({ navigation }) => {
                   </Text>
                 </View>
               </View>
+              <Image
+                source={imagePath.groupVector2}
+                style={styles.groupVectorStyle}
+              />
               <View>
                 <Text style={styles.LoginText}>Login</Text>
                 <TextInputWithLabel
@@ -122,23 +113,26 @@ const LoginScreen = ({ navigation }) => {
                 >
                   <Text style={styles.forgotText}>Forgot Password ?</Text>
                 </TouchableOpacity>
-                  <ButtonComp btnText={"Login"} />
-
+                <View style={styles.inputContainer}>
+                  <ButtonComp
+                    btnText={"Login"}
+                    onPress={() =>
+                      navigation.navigate(navigationStrings.HOME)
+                    }
+                    btnStyle={{ left: 31 }}
+                  />
+                </View>
               </View>
-              <View style={styles.buttomVectorContainer}>
-                <Image
-                  source={imagePath.groupVector2}
-                  style={styles.leftVectorImage}
-                />
+              <View style={styles.lowerContainer}>
+                <Text style={styles.footerText}>
+                  Don't have an account yet?
+                </Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate(navigationStrings.SIGNUP)}
+                >
+                  <Text style={styles.SignUpTextLink}> Sign Up!</Text>
+                </TouchableOpacity>
               </View>
-            </View>
-            <View style={styles.lowerContainer}>
-              <Text style={styles.footerText}>Don't have an account yet?</Text>
-              <TouchableOpacity
-                onPress={() => navigation.navigate(navigationStrings.SIGNUP)}
-              >
-                <Text style={styles.SignUpTextLink}> Sign Up!</Text>
-              </TouchableOpacity>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -149,13 +143,7 @@ const LoginScreen = ({ navigation }) => {
             <TouchableOpacity onPress={toggleModal}>
               <Image
                 source={require("../../assets/images/x.png")}
-                style={{
-                  height: 20,
-                  width: 20,
-                  left: 122,
-                  bottom: 10,
-                  alignItems: "flex-end",
-                }}
+                style={styles.xImageStyle}
               />
             </TouchableOpacity>
           </View>
@@ -163,26 +151,11 @@ const LoginScreen = ({ navigation }) => {
         <View style={{ alignItems: "center" }}>
           <Image
             source={require("../../assets/images/phoneNum.png")}
-            style={{
-              height: 80,
-              width: 80,
-              marginVertical: 10,
-              left: 8,
-              bottom: 30,
-              alignItems: "center",
-              justifyContent: "center",
-            }}
+            style={styles.phoneIconStyle}
           />
         </View>
         <Text
-          style={{
-            fontSize: 20,
-            textAlign: "center",
-            bottom: 30,
-            color: "#113832",
-            fontWeight: "bold",
-            justifyContent: "center",
-          }}
+          style={styles.enterPhoneNoStyle}
         >
           Enter your phone number
         </Text>
@@ -304,25 +277,11 @@ const LoginScreen = ({ navigation }) => {
         </View>
         <View>
           <TouchableOpacity
-            style={{
-              backgroundColor: "#03462F",
-              borderRadius: 6,
-              paddingVertical: 10,
-              paddingHorizontal: 20,
-              alignSelf: "center",
-              marginTop: 8,
-              left: 1,
-            }}
+            style={styles.verifyOtpContainer}
             onPress={handleVerifyOTP}
           >
             <Text
-              style={{
-                fontSize: 13,
-                color: "white",
-                fontWeight: "bold",
-                textTransform: "uppercase",
-                padding: 3,
-              }}
+              style={styles.verifyOtpStyle}
             >
               Verify OTP
             </Text>

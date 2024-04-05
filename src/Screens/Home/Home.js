@@ -3,8 +3,8 @@ import React from 'react'
 
 const Home = () => {
   return (
-    <View>
-      <Text style={styles.homeConatiner}>Home Page coming soon ...</Text>
+    <View style={styles.container}>
+      <Text style={styles.homeText}>Home Page coming soon ...</Text>
     </View>
   )
 }
@@ -12,10 +12,13 @@ const Home = () => {
 export default Home
 
 const styles = StyleSheet.create({
-  homeConatiner: {
+  container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 100
+  },
+  homeText: {
+    fontWeight: 'bold',
+    fontSize: 20,
   }
 })
