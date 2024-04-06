@@ -2,5 +2,6 @@ export default {
     LOGIN: "login",
     SIGNUP: "signup",
     FORGETPASSWORD: "forgetpassword",
-    HOME: "home"
+    HOME: "home",
+    SPLASH: "splash"
 }

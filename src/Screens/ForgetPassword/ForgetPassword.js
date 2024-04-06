@@ -25,6 +25,28 @@ import ModalPopup from "../../Components/modelPopup";
 const SignUp = ({ navigation }) => {
   const [isVisible, setVisible] = useState(true);
   const [showModal, setShowModal] = useState(false);
+  // const [password, setPassword] = useState("");
+  // const [confirmPassword, setConfirmPassword] = useState("");
+  // const [isVisibleP, setVisibleP] = useState(false);
+  // const [passwordMatch, setPasswordMatch] = useState(false);
+
+  // const handlePasswordChange = (text) => {
+  //   setPassword(text);
+  //   if (text === confirmPassword) {
+  //     setPasswordMatch(true);
+  //   } else {
+  //     setPasswordMatch(false);
+  //   }
+  // };
+
+  // const handleConfirmPasswordChange = (text) => {
+  //   setConfirmPassword(text);
+  //   if (text === password) {
+  //     setPasswordMatch(true);
+  //   } else {
+  //     setPasswordMatch(false);
+  //   }
+  // };
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -71,15 +93,22 @@ const SignUp = ({ navigation }) => {
                   secureTextEntry={isVisible}
                   rightIcon={isVisible ? imagePath.hideEye : imagePath.showEye}
                   leftIcon={imagePath.lockIcon}
-                  onPressRight={() => setVisible(!isVisible)}
+                  // onChangeText={handlePasswordChange}
+                  onPressRight={() => setVisible(!isVisibleP)}
                 />
                 <TextInputWithLabel
                   placeholder="Confirm Password"
                   secureTextEntry={isVisible}
                   rightIcon={isVisible ? imagePath.hideEye : imagePath.showEye}
                   leftIcon={imagePath.lockIcon}
-                  onPressRight={() => setVisible(!isVisible)}
+                  // onChangeText={handleConfirmPasswordChange}
+                  onPressRight={() => setVisible(!isVisibleP)}
                 />
+                {/* {passwordMatch ? (
+                  <Text style={{ color: "green" }}>Passwords match!</Text>
+                ) : (
+                  <Text style={{ color: "red" }}>Passwords do not match!</Text>
+                )} */}
                 <View style={{ marginTop: 45 }}>
                   <ButtonComp btnText={"Update"} onPress={toggleModal} />
                 </View>

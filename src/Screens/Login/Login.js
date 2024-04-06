@@ -25,6 +25,9 @@ import { moderateVerticalScale } from "react-native-size-matters";
 import ButtonComp from "../../Components/ButtonComp";
 import navigationStrings from "../../Constans/navigationStrings";
 import ModalPopup from "../../Components/modelPopup";
+import { OtpInput } from "react-native-otp-entry";
+import { Colors } from "react-native/Libraries/NewAppScreen";
+import MyCustomPhoneInput from "../../Components/MyCustomPhoneInput";
 
 const LoginScreen = ({ navigation }) => {
   const [isVisible, setVisible] = useState(true);
@@ -48,17 +51,6 @@ const LoginScreen = ({ navigation }) => {
     // Navigate back to login screen
     toggleOtpModal();
     navigation.navigate(navigationStrings.FORGETPASSWORD);
-  };
-
-  const OTPInputBox = () => {
-    return (
-      <TextInput
-        style={styles.otpInputStyle}
-        keyboardType="numeric"
-        maxLength={1}
-        // onChangeText={text => handleOTPInput(text)}
-      />
-    );
   };
 
   return (
@@ -116,9 +108,7 @@ const LoginScreen = ({ navigation }) => {
                 <View style={styles.inputContainer}>
                   <ButtonComp
                     btnText={"Login"}
-                    onPress={() =>
-                      navigation.navigate(navigationStrings.HOME)
-                    }
+                    onPress={() => navigation.navigate(navigationStrings.HOME)}
                     btnStyle={{ left: 31 }}
                   />
                 </View>
@@ -139,14 +129,12 @@ const LoginScreen = ({ navigation }) => {
       </ScrollView>
       <ModalPopup visible={showModal} onClose={toggleModal}>
         <View style={{ alignItems: "center" }}>
-          <View>
             <TouchableOpacity onPress={toggleModal}>
               <Image
                 source={require("../../assets/images/x.png")}
                 style={styles.xImageStyle}
               />
             </TouchableOpacity>
-          </View>
         </View>
         <View style={{ alignItems: "center" }}>
           <Image
@@ -154,11 +142,7 @@ const LoginScreen = ({ navigation }) => {
             style={styles.phoneIconStyle}
           />
         </View>
-        <Text
-          style={styles.enterPhoneNoStyle}
-        >
-          Enter your phone number
-        </Text>
+        <Text style={styles.enterPhoneNoStyle}>Enter your phone number</Text>
         <Text
           style={{
             fontSize: 12,
@@ -169,26 +153,10 @@ const LoginScreen = ({ navigation }) => {
         >
           We will send you the 4 digit verification code
         </Text>
-        <View>
-          <TextInput
-            style={{
-              width: "100%",
-              borderWidth: 1,
-              borderColor: "#CCCCCC",
-              fontSize: 20,
-              borderRadius: 6,
-              paddingLeft: 50,
-              paddingRight: 50,
-              paddingTop: 10,
-              paddingBottom: 10,
-              backgroundColor: "#BFDED3",
-              bottom: 10,
-            }}
-            placeholder="Phone Number"
-            keyboardType="numeric"
-            maxLength={10}
-            // onChangeText={text => setPhoneNumber(text)}
-          />
+        <View
+          style={{ justifyContent: "center", alignItems: "center", bottom: 10 }}
+        >
+          <MyCustomPhoneInput maxLength={10} minLength={10} />
         </View>
 
         <View>
@@ -199,7 +167,7 @@ const LoginScreen = ({ navigation }) => {
               paddingVertical: 10,
               paddingHorizontal: 20,
               alignSelf: "center",
-              marginTop: 8,
+              marginTop: 15,
               left: 1,
             }}
             onPress={handleGenerateOTP}
@@ -224,9 +192,9 @@ const LoginScreen = ({ navigation }) => {
             <Image
               source={require("../../assets/images/x.png")}
               style={{
-                height: 20,
-                width: 20,
-                left: 122,
+                height: 30,
+                width: 30,
+                left: 127,
                 bottom: 10,
                 alignItems: "flex-end",
               }}
@@ -235,12 +203,12 @@ const LoginScreen = ({ navigation }) => {
         </View>
         <View style={{ alignItems: "center" }}>
           <Image
-            source={require("../../assets/images/phoneNum.png")}
+            source={require("../../assets/images/Lock.png")}
             style={{
-              height: 80,
-              width: 80,
+              height: 70,
+              width: 70,
               marginVertical: 10,
-              left: 8,
+              left: 7,
               bottom: 30,
               alignItems: "center",
               justifyContent: "center",
@@ -249,7 +217,7 @@ const LoginScreen = ({ navigation }) => {
         </View>
         <Text
           style={{
-            fontSize: 20,
+            fontSize: 16,
             textAlign: "center",
             bottom: 30,
             color: "#113832",
@@ -257,34 +225,51 @@ const LoginScreen = ({ navigation }) => {
             justifyContent: "center",
           }}
         >
-          Enter your OTP
+          A verification code has been sent to your phone +91-XXXXX XXX23
         </Text>
-        <Text
+        <View style={{ marginVertical: 8, bottom: 15 }}>
+          <OtpInput
+            numberOfDigits={4}
+            onTextChange={(text) => console.log(text)}
+            focusColor={"#8AC8B3"}
+            theme={{
+              pincodeContainer: {
+                backgroundColor: "white",
+                width: 20,
+                height: 20,
+                borderRadius: 10,
+                color: "red",
+              },
+            }}
+          />
+        </View>
+        <View
           style={{
-            fontSize: 12,
-            textAlign: "center",
-            bottom: 25,
-            color: "#113832",
+            flexDirection: "row",
+            alignItems: "center",
+            bottom: 10,
           }}
         >
-          We have sent you a 4-digit OTP on your phone number
-        </Text>
-        <View style={{ flexDirection: "row", justifyContent: "center" }}>
-          <OTPInputBox />
-          <OTPInputBox />
-          <OTPInputBox />
-          <OTPInputBox />
+          <Text>Don't receive the code ?</Text>
+          <TouchableOpacity>
+            <Text
+              style={{
+                textDecorationLine: "underline",
+                color: "#095E40",
+                fontWeight: "bold",
+                fontSize: 14,
+              }}
+            >
+              {"  "}Resend Code
+            </Text>
+          </TouchableOpacity>
         </View>
         <View>
           <TouchableOpacity
             style={styles.verifyOtpContainer}
             onPress={handleVerifyOTP}
           >
-            <Text
-              style={styles.verifyOtpStyle}
-            >
-              Verify OTP
-            </Text>
+            <Text style={styles.verifyOtpStyle}>Verify OTP</Text>
           </TouchableOpacity>
         </View>
       </ModalPopup>

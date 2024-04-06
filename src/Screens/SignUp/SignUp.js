@@ -22,6 +22,7 @@ import { moderateVerticalScale } from "react-native-size-matters";
 import ButtonComp from "../../Components/ButtonComp";
 import navigationStrings from "../../Constans/navigationStrings";
 import ModalPopup from "../../Components/modelPopup";
+import { OtpInput } from "react-native-otp-entry";
 
 const SignUp = ({ navigation }) => {
   const [isVisible, setVisible] = useState(true);
@@ -45,16 +46,6 @@ const SignUp = ({ navigation }) => {
   const handleVerifyOTP = () => {
     toggleModal();
     toggleOtpModal();
-  };
-  const OTPInputBox = () => {
-    return (
-      <TextInput
-        style={styles.otpInputStyle}
-        keyboardType="numeric"
-        maxLength={1}
-        // onChangeText={text => handleOTPInput(text)}
-      />
-    );
   };
 
   return (
@@ -132,9 +123,9 @@ const SignUp = ({ navigation }) => {
             <Image
               source={require("../../assets/images/x.png")}
               style={{
-                height: 20,
-                width: 20,
-                left: 122,
+                height: 30,
+                width: 30,
+                left: 127,
                 bottom: 10,
                 alignItems: "flex-end",
               }}
@@ -143,12 +134,12 @@ const SignUp = ({ navigation }) => {
         </View>
         <View style={{ alignItems: "center" }}>
           <Image
-            source={require("../../assets/images/phoneNum.png")}
+            source={require("../../assets/images/Lock.png")}
             style={{
-              height: 80,
-              width: 80,
+              height: 70,
+              width: 70,
               marginVertical: 10,
-              left: 8,
+              left: 7,
               bottom: 30,
               alignItems: "center",
               justifyContent: "center",
@@ -157,7 +148,7 @@ const SignUp = ({ navigation }) => {
         </View>
         <Text
           style={{
-            fontSize: 20,
+            fontSize: 16,
             textAlign: "center",
             bottom: 30,
             color: "#113832",
@@ -165,23 +156,47 @@ const SignUp = ({ navigation }) => {
             justifyContent: "center",
           }}
         >
-          Enter your OTP
+          A verification code has been sent to your phone +91-XXXXX XXX23
         </Text>
-        <Text
-          style={{
-            fontSize: 12,
-            textAlign: "center",
-            bottom: 25,
-            color: "#113832",
-          }}
-        >
-          We have sent you a 4-digit OTP on your phone number
-        </Text>
-        <View style={{ flexDirection: "row", justifyContent: "center" }}>
-          <OTPInputBox />
-          <OTPInputBox />
-          <OTPInputBox />
-          <OTPInputBox />
+
+        <View>
+          <View style={{ marginVertical: 8, bottom: 15 }}>
+            <OtpInput
+              numberOfDigits={4}
+              onTextChange={(text) => console.log(text)}
+              focusColor={"#8AC8B3"}
+              theme={{
+                pincodeContainer: {
+                  backgroundColor: "white",
+                  width: 20,
+                  height: 20,
+                  borderRadius: 10,
+                  color: "red",
+                },
+              }}
+            />
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              bottom: 10,
+            }}
+          >
+            <Text>Don't receive the code ?</Text>
+            <TouchableOpacity>
+              <Text
+                style={{
+                  textDecorationLine: "underline",
+                  color: "#095E40",
+                  fontWeight: "bold",
+                  fontSize: 14,
+                }}
+              >
+                {"  "}Resend Code
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <View>
           <TouchableOpacity
@@ -221,15 +236,15 @@ const SignUp = ({ navigation }) => {
             Successfully
           </Text>
           <Text
-          style={{
-            fontSize: 15,
-            textAlign: "center",
-            bottom: 25,
-            color: "#113832",
-          }}
-        >
-          Your Account has been Created.
-        </Text>
+            style={{
+              fontSize: 15,
+              textAlign: "center",
+              bottom: 25,
+              color: "#113832",
+            }}
+          >
+            Your Account has been Created.
+          </Text>
           <View>
             <TouchableOpacity
               style={{

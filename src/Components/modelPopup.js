@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     
   },
   modalContainer: {
-    width: "80%",
+    width: "85%",
     backgroundColor: "white",
     paddingHorizontal: 20,
     paddingVertical: 20,

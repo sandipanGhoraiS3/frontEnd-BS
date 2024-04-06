@@ -176,9 +176,9 @@ const styles = StyleSheet.create({
     backgroundColor: "#BFDED3",
   },
   xImageStyle: {
-    height: 20,
-    width: 20,
-    left: 122,
+    height: 30,
+    width: 30,
+    left: 127,
     bottom: 10,
     alignItems: "flex-end",
   },
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     alignSelf: "center",
-    marginTop: 8,
+    top: 5,
     left: 1,
   },
 });
