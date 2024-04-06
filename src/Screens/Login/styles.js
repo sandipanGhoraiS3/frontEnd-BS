@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5F5F5",
     flex: 1,
     justifyContent: "space-between",
-    bottom: 0,
   },
   TextBible: {
     position: "absolute",
@@ -126,6 +125,7 @@ const styles = StyleSheet.create({
     color: "#095E40",
     fontWeight: "bold",
     bottom: 20,
+    fontSize: 14
   },
   lowerContainer: {
     flexDirection: "row",
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     resizeMode: "cover",
     opacity: 0.7,
-    bottom: 0,
+    bottom: -1
   },
   otpInputStyle: {
     width: 50,

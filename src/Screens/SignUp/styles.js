@@ -125,15 +125,56 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
     color: "#095E40",
     fontWeight: "bold",
-    left: 78
+    left: 78,
+    fontSize: 14
   },
   lowerContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: moderateVerticalScale(10),
+    marginTop: moderateVerticalScale(21),
     justifyContent: "center",
-    height: 61,
-  }
+    padding: 2,
+    bottom: 0,
+
+  },
+  groupVectorStyle: {
+    position: "absolute",
+    flexGrow: 1,
+    resizeMode: "cover",
+    opacity: 0.7,
+    bottom: -25,
+    transform: [{ rotate: '-8deg'}]
+  },
+  verifyOtpStyle: {
+    fontSize: 13,
+    color: "white",
+    fontWeight: "bold",
+    textTransform: "uppercase",
+    padding: 3,
+  },
+  verifyOtpContainer: {
+    backgroundColor: "#03462F",
+    borderRadius: 6,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    alignSelf: "center",
+    marginTop: 8,
+    left: 1,
+  },
+  otpInputStyle: {
+    width: 50,
+    height: 50,
+    borderWidth: 1,
+    borderColor: "#CCCCCC",
+    fontSize: 20,
+    borderRadius: 6,
+    paddingLeft: 12,
+    paddingRight: 12,
+    paddingTop: 10,
+    paddingBottom: 10,
+    margin: 5,
+    backgroundColor: "#BFDED3",
+  },
 });
 
 export default styles;

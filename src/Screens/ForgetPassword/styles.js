@@ -135,7 +135,14 @@ const styles = StyleSheet.create({
     marginTop: moderateVerticalScale(10),
     justifyContent: "center",
     height: 96,
-  }
+  },
+  groupVectorStyle: {
+    position: "absolute",
+    flexGrow: 1,
+    resizeMode: "cover",
+    opacity: 0.7,
+    bottom: -1
+  },
 });
 
 export default styles;

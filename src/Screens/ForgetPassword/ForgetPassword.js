@@ -20,9 +20,20 @@ import imagePath from "../../Constans/imagePath";
 import { moderateVerticalScale } from "react-native-size-matters";
 import ButtonComp from "../../Components/ButtonComp";
 import navigationStrings from "../../Constans/navigationStrings";
+import ModalPopup from "../../Components/modelPopup";
 
 const SignUp = ({ navigation }) => {
   const [isVisible, setVisible] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
+  const nextNavigationPage = () => {
+    toggleModal();
+    navigation.navigate(navigationStrings.LOGIN);
+  };
+
   return (
     <KeyboardAvoidingView
       behavior="padding"
@@ -49,6 +60,10 @@ const SignUp = ({ navigation }) => {
                   </Text>
                 </View>
               </View>
+              <Image
+                source={imagePath.groupVector2}
+                style={styles.groupVectorStyle}
+              />
               <View>
                 <Text style={styles.LoginText}>Reset Password</Text>
                 <TextInputWithLabel
@@ -65,28 +80,89 @@ const SignUp = ({ navigation }) => {
                   leftIcon={imagePath.lockIcon}
                   onPressRight={() => setVisible(!isVisible)}
                 />
-                <View style={{marginTop: 45}}>
-                  <ButtonComp btnText={"Update"} />
+                <View style={{ marginTop: 45 }}>
+                  <ButtonComp btnText={"Update"} onPress={toggleModal} />
                 </View>
               </View>
-              <View style={styles.buttomVectorContainer}>
-                <Image
-                  source={imagePath.groupVector2}
-                  style={styles.leftVectorImage}
-                />
+              <View style={styles.lowerContainer}>
+                <Text style={styles.footerText}>Already have an account?</Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate(navigationStrings.LOGIN)}
+                >
+                  <Text style={styles.SignUpTextLink}> Sign In</Text>
+                </TouchableOpacity>
               </View>
-            </View>
-            <View style={styles.lowerContainer}>
-              <Text style={styles.footerText}>Already have an account?</Text>
-              <TouchableOpacity
-                onPress={() => navigation.navigate(navigationStrings.LOGIN)}
-              >
-                <Text style={styles.SignUpTextLink}> Sign In</Text>
-              </TouchableOpacity>
             </View>
           </View>
         </TouchableWithoutFeedback>
       </ScrollView>
+
+      <ModalPopup visible={showModal} onClose={toggleModal}>
+        <View style={{ alignItems: "center" }}>
+          <View style={{ alignItems: "center" }}>
+            <Image
+              source={require("../../assets/images/successfull2.png")}
+              style={{
+                height: 80,
+                width: 80,
+                marginVertical: 10,
+                marginTop: 25,
+                bottom: 30,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            />
+          </View>
+          <Text
+            style={{
+              fontSize: 22,
+              textAlign: "center",
+              bottom: 30,
+              color: "#113832",
+              fontWeight: "bold",
+              justifyContent: "center",
+            }}
+          >
+            Password Changed!
+          </Text>
+          <Text
+            style={{
+              fontSize: 14,
+              textAlign: "center",
+              bottom: 25,
+              color: "#113832",
+            }}
+          >
+            Your Password has been changed Successfully.
+          </Text>
+          <View>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#03462F",
+                borderRadius: 6,
+                paddingVertical: 11,
+                paddingHorizontal: 35,
+                alignSelf: "center",
+                marginTop: 8,
+                left: 1,
+              }}
+              onPress={nextNavigationPage}
+            >
+              <Text
+                style={{
+                  fontSize: 13,
+                  color: "white",
+                  fontWeight: "bold",
+                  textTransform: "uppercase",
+                  padding: 3,
+                }}
+              >
+                Okay
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ModalPopup>
     </KeyboardAvoidingView>
   );
 };
