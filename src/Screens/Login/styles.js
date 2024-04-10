@@ -66,6 +66,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 35,
     alignItems: "center",
     paddingBottom: 35,
+
   },
   textInput: {
     width: "100%",
@@ -134,12 +135,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 20,
     bottom: 0,
-  },
-  inputContainer: {
-    width: "100%",
-    paddingHorizontal: 35,
-    alignItems: "center",
-    paddingBottom: 35,
   },
   loginButton: {
     backgroundColor: "#03462F",

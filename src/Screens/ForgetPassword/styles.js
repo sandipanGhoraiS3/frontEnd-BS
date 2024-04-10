@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   LoginContainer: {
     backgroundColor: "#F5F5F5",
     flex: 1,
-    justifyContent: 'space-between'
+    justifyContent: "space-between",
   },
   TextBible: {
     position: "absolute",
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexGrow: 1,
-    right: 4
+    right: 4,
   },
   logoText: {
     fontSize: 23,
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     fontSize: 32,
     left: 35,
     fontWeight: "bold",
-    paddingTop: 12
+    paddingTop: 12,
   },
   inputContainer: {
     width: "100%",
@@ -74,8 +74,6 @@ const styles = StyleSheet.create({
     borderColor: "#CCCCCC",
     fontSize: 16,
     borderRadius: 6,
-    // paddingLeft: 15,
-    // paddingRight: 15,
     paddingTop: 10,
     paddingBottom: 10,
     backgroundColor: "#BFDED3",
@@ -104,27 +102,25 @@ const styles = StyleSheet.create({
     fontSize: scale(14),
     color: "#388D7D",
     fontWeight: "400",
-
   },
   footerText: {
-    // position: "absolute",
     textAlign: "center",
     fontSize: 15,
-    marginTop: 35,
+    marginTop: 15,
     color: "#000000",
-    paddingBottom: 40,
+    paddingBottom: 45,
   },
   buttomVectorContainer: {
     position: "absolute",
     bottom: 0,
     top: 630,
-    right: 2
+    right: 2,
   },
   leftVectorImage: {
     bottom: 0,
   },
   SignUpTextLink: {
-    marginBottom: 5,
+    marginBottom: 32,
     textDecorationLine: "underline",
     color: "#095E40",
     fontWeight: "bold",
@@ -141,7 +137,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     resizeMode: "cover",
     opacity: 0.7,
-    bottom: -1
+    bottom: -1,
   },
 });
 

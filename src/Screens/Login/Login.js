@@ -109,7 +109,7 @@ const LoginScreen = ({ navigation }) => {
                   <ButtonComp
                     btnText={"Login"}
                     onPress={() => navigation.navigate(navigationStrings.HOME)}
-                    btnStyle={{ left: 31 }}
+                    btnStyle={{ left: 31, marginTop: 15 }}
                   />
                 </View>
               </View>

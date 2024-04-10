@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexGrow: 1,
+    right: 4,
   },
   logoText: {
     fontSize: 23,
@@ -131,10 +132,12 @@ const styles = StyleSheet.create({
   lowerContainer: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: moderateVerticalScale(21),
+    // marginTop: moderateVerticalScale(21),
     justifyContent: "center",
-    padding: 2,
+    padding: 6,
     bottom: 0,
+    // backgroundColor: 'blue',
+    // 
 
   },
   groupVectorStyle: {
@@ -142,8 +145,9 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     resizeMode: "cover",
     opacity: 0.7,
-    bottom: -25,
-    transform: [{ rotate: '-8deg'}]
+    bottom: -18,
+    // backgroundColor: 'red'
+    // transform: [{ rotate: '-8deg'}]
   },
   verifyOtpStyle: {
     fontSize: 13,

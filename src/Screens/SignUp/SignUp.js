@@ -23,11 +23,13 @@ import ButtonComp from "../../Components/ButtonComp";
 import navigationStrings from "../../Constans/navigationStrings";
 import ModalPopup from "../../Components/modelPopup";
 import { OtpInput } from "react-native-otp-entry";
+import CheckBoxCustom from "../../Components/CheckBoxCustom";
 
 const SignUp = ({ navigation }) => {
   const [isVisible, setVisible] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [otpModalVisible, setOtpModalVisible] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -80,7 +82,7 @@ const SignUp = ({ navigation }) => {
               />
               <View>
                 <Text style={styles.LoginText}>Sign Up</Text>
-                <View style={{ bottom: 10 }}>
+                <View style={{ bottom: 15 }}>
                   <TextInputWithLabel
                     placeholder="Username"
                     KeyboardType="email-address"
@@ -101,7 +103,14 @@ const SignUp = ({ navigation }) => {
                     onPressRight={() => setVisible(!isVisible)}
                   />
                 </View>
-                <View style={{ marginTop: 8 }}>
+                <View style={{ marginTop: 1 }}>
+                  <CheckBoxCustom
+                    label="Are you Admin?"
+                    isChecked={isChecked}
+                    onChange={setIsChecked}
+                  />
+                </View>
+                <View style={{ bottom: 13 }}>
                   <ButtonComp btnText={"Sign Up"} onPress={toggleOtpModal} />
                 </View>
               </View>
@@ -117,6 +126,74 @@ const SignUp = ({ navigation }) => {
           </View>
         </TouchableWithoutFeedback>
       </ScrollView>
+
+      {/* <ModalPopup visible={showModal} onClose={toggleOtpModal}>
+        <View style={{ alignItems: "center" }}>
+          <View style={{ alignItems: "center" }}>
+            <Image
+              source={require("../../assets/images/successfull2.png")}
+              style={{
+                height: 80,
+                width: 80,
+                marginVertical: 10,
+                marginTop: 25,
+                bottom: 30,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            />
+          </View>
+          <Text
+            style={{
+              fontSize: 25,
+              textAlign: "center",
+              bottom: 30,
+              color: "#113832",
+              fontWeight: "bold",
+              justifyContent: "center",
+            }}
+          >
+            Successfully
+          </Text>
+          <Text
+            style={{
+              fontSize: 15,
+              textAlign: "center",
+              bottom: 25,
+              color: "#113832",
+            }}
+          >
+            Your Account has been Created.
+          </Text>
+          <View>
+            <TouchableOpacity
+              style={{
+                backgroundColor: "#03462F",
+                borderRadius: 6,
+                paddingVertical: 11,
+                paddingHorizontal: 35,
+                alignSelf: "center",
+                marginTop: 8,
+                left: 1,
+              }}
+              onPress={handleGenerateOTP}
+            >
+              <Text
+                style={{
+                  fontSize: 13,
+                  color: "white",
+                  fontWeight: "bold",
+                  textTransform: "uppercase",
+                  padding: 3,
+                }}
+              >
+                Okay
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ModalPopup> */}
+
       <ModalPopup visible={otpModalVisible} onClose={toggleOtpModal}>
         <View style={{ alignItems: "center" }}>
           <TouchableOpacity onPress={toggleOtpModal}>

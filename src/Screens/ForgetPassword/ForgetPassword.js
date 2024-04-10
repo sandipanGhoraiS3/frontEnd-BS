@@ -25,32 +25,13 @@ import ModalPopup from "../../Components/modelPopup";
 const SignUp = ({ navigation }) => {
   const [isVisible, setVisible] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  // const [password, setPassword] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
-  // const [isVisibleP, setVisibleP] = useState(false);
-  // const [passwordMatch, setPasswordMatch] = useState(false);
-
-  // const handlePasswordChange = (text) => {
-  //   setPassword(text);
-  //   if (text === confirmPassword) {
-  //     setPasswordMatch(true);
-  //   } else {
-  //     setPasswordMatch(false);
-  //   }
-  // };
-
-  // const handleConfirmPasswordChange = (text) => {
-  //   setConfirmPassword(text);
-  //   if (text === password) {
-  //     setPasswordMatch(true);
-  //   } else {
-  //     setPasswordMatch(false);
-  //   }
-  // };
+  const [password, setPassword] = useState(""); // to store password
+  const [confirmPassword, setConfirmPassword] = useState(""); // to store password
 
   const toggleModal = () => {
     setShowModal(!showModal);
   };
+
   const nextNavigationPage = () => {
     toggleModal();
     navigation.navigate(navigationStrings.LOGIN);
@@ -93,23 +74,21 @@ const SignUp = ({ navigation }) => {
                   secureTextEntry={isVisible}
                   rightIcon={isVisible ? imagePath.hideEye : imagePath.showEye}
                   leftIcon={imagePath.lockIcon}
-                  // onChangeText={handlePasswordChange}
-                  onPressRight={() => setVisible(!isVisibleP)}
+                  onPressRight={() => setVisible(!isVisible)}
+                  value={password}
+                  // onChangeText={(password) => setPassword(password)}
                 />
                 <TextInputWithLabel
                   placeholder="Confirm Password"
                   secureTextEntry={isVisible}
                   rightIcon={isVisible ? imagePath.hideEye : imagePath.showEye}
                   leftIcon={imagePath.lockIcon}
-                  // onChangeText={handleConfirmPasswordChange}
-                  onPressRight={() => setVisible(!isVisibleP)}
+                  onPressRight={() => setVisible(!isVisible)}
+                  value={confirmPassword}
+                  // onChangeText={(password) => setConfirmPassword(password)}
+                  // passwordsMatch={password === confirmPassword}
                 />
-                {/* {passwordMatch ? (
-                  <Text style={{ color: "green" }}>Passwords match!</Text>
-                ) : (
-                  <Text style={{ color: "red" }}>Passwords do not match!</Text>
-                )} */}
-                <View style={{ marginTop: 45 }}>
+                <View style={{ marginTop: 60 }}>
                   <ButtonComp btnText={"Update"} onPress={toggleModal} />
                 </View>
               </View>

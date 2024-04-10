@@ -4,6 +4,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  Text,
 } from "react-native";
 import React from "react";
 import { scale, verticalScale, moderateScale } from "react-native-size-matters";
@@ -16,6 +17,8 @@ const TextInputWithLabel = ({
   leftIcon,
   inputContainer = {},
   onPressRight,
+  value,
+  // passwordsMatch,
   ...props
 }) => {
   return (
@@ -35,6 +38,17 @@ const TextInputWithLabel = ({
           />
         </TouchableOpacity>
       ) : null}
+      {/* {passwordsMatch && ( // Render an additional view if passwordsMatch is true
+        <View
+          style={{
+            position: "absolute",
+            right: 10,
+            top: 15,
+          }}
+        >
+          <Text style={{ color: "green" }}>Passwords match</Text>
+        </View>
+      )} */}
     </View>
   );
 };

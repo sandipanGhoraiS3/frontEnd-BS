@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 15
+    // marginTop: 1
   },
   btnTextStyle: {
     fontSize: scale(12),
@@ -47,20 +47,5 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
   },
 });
-// const styles = StyleSheet.create({
-//   btnStyle: {
-//     height: moderateScale(48),
-//     backgroundColor: colors.themeColor,
-//     borderRadius: moderateScale(4),
-//     alignItems: "center",
-//     justifyContent: "center",
-//   },
-//   btnTextStyle: {
-//     fontSize: scale(12),
-//     color: "white",
-//     fontWeight: "bold",
-//     textTransform: "uppercase",
-//   },
-// });
 
 export default ButtonComp;
