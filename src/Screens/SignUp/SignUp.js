@@ -87,11 +87,15 @@ const SignUp = ({ navigation }) => {
                     placeholder="Username"
                     KeyboardType="email-address"
                     leftIcon={imagePath.userIcon}
+                    // error={"hi"}
                   />
                   <TextInputWithLabel
                     placeholder="Phone Number"
-                    KeyboardType="email-address"
+                    keyboardType="numeric"
+                    maxLength={10}
                     leftIcon={imagePath.phoneIcon}
+                    // error={'hi'}
+                    // errorStyle={{right: 285}}
                   />
                   <TextInputWithLabel
                     placeholder="Password"
@@ -101,6 +105,8 @@ const SignUp = ({ navigation }) => {
                     }
                     leftIcon={imagePath.passwordIcon}
                     onPressRight={() => setVisible(!isVisible)}
+                    // error={'hi'}
+                    // errorStyle={{right: 190}}
                   />
                 </View>
                 <View style={{ marginTop: 1 }}>

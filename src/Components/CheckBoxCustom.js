@@ -12,6 +12,7 @@ import React, { useState } from "react";
 import ModalPopup from "./modelPopup";
 import ButtonComp from "./ButtonComp";
 import Toast from "react-native-toast-message";
+import TextInputWithLabel from "./TextInputWithLabel";
 // import Animated from 'react-native/Libraries/Animated';
 
 const CheckBoxCustom = ({ isChecked, onChange, label }) => {
@@ -38,7 +39,7 @@ const CheckBoxCustom = ({ isChecked, onChange, label }) => {
       setModalVisible(false); // Close the modal
     } else {
       Toast.show({
-        type: 'error',
+        type: "error",
         text1: "Wrong Secret code",
         autoHide: true,
         visibilityTime: 2000,
@@ -132,7 +133,7 @@ const CheckBoxCustom = ({ isChecked, onChange, label }) => {
           >
             If you don't know, contact the admin.
           </Text>
-          <TextInput
+          {/* <TextInput
             style={{
               width: "100%",
               borderWidth: 1,
@@ -149,8 +150,18 @@ const CheckBoxCustom = ({ isChecked, onChange, label }) => {
             keyboardType="numeric"
             maxLength={6}
             fontSize={25}
+          /> */}
+          <TextInputWithLabel
+            // placeholder={"Six Digit Code"}
+            keyboardType="numeric"
+            maxLength={6}
+            inputContainer={{ bottom: 30 }}
+            // error={"hi"}
+            errorStyle={{ backgroundColor: "red", left: 100 }}
+            innerTextStyle={{ fontSize: 25 }}
           />
-          <View style={{ flexDirection: "row", alignItems: "center", top: 5 }}>
+
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
             <ButtonComp
               btnText={"No"}
               btnStyle={{ height: 40, width: 90 }}

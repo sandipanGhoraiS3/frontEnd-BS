@@ -18,18 +18,37 @@ const TextInputWithLabel = ({
   inputContainer = {},
   onPressRight,
   value,
+  innerTextStyle = {},
+  errorStyle = {},
+  leftImage = {},
+  maxLength,
+  error,
   // passwordsMatch,
   ...props
 }) => {
+  const handleOnChangeText = (text) => {
+    // If maxLength prop is provided, enforce it
+    if (maxLength && text.length > maxLength) {
+      text = text.slice(0, maxLength);
+    }
+    onChangeText(text);
+  };
   return (
     <View style={{ ...styles.inputContainer, ...inputContainer }}>
       <TextInput
-        style={styles.textInput}
+        style={{ ...styles.textInput, ...innerTextStyle }}
         placeholder={placeholder}
         placeholderTextColor="#3B4541"
+        maxLength={maxLength}
+        onChangeText={handleOnChangeText}
         {...props}
       />
-      {<Image source={leftIcon} style={{ right: 280 }} />}
+      {
+        <Image
+          source={leftIcon}
+          style={{ ...styles.leftImageStyle, ...leftImage }}
+        />
+      }
       {!!rightIcon ? (
         <TouchableOpacity activeOpacity={0.8} onPress={onPressRight}>
           <Image
@@ -38,17 +57,9 @@ const TextInputWithLabel = ({
           />
         </TouchableOpacity>
       ) : null}
-      {/* {passwordsMatch && ( // Render an additional view if passwordsMatch is true
-        <View
-          style={{
-            position: "absolute",
-            right: 10,
-            top: 15,
-          }}
-        >
-          <Text style={{ color: "green" }}>Passwords match</Text>
-        </View>
-      )} */}
+      {error && (
+        <Text style={{ ...styles.errorText, ...errorStyle }}>{error}</Text>
+      )}
     </View>
   );
 };
@@ -77,4 +88,11 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     backgroundColor: "#BFDED3",
   },
+  errorText: {
+    color: "red",
+    fontSize: 12,
+    top: 35,
+    right: 280,
+  },
+  leftImageStyle: { right: 280 },
 });

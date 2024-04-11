@@ -89,6 +89,7 @@ const LoginScreen = ({ navigation }) => {
                   placeholder="Username"
                   KeyboardType="email-address"
                   leftIcon={imagePath.userIcon}
+                  // error={'hi'}
                 />
                 <TextInputWithLabel
                   placeholder="Password"
@@ -97,6 +98,8 @@ const LoginScreen = ({ navigation }) => {
                   leftIcon={imagePath.passwordIcon}
                   KeyboardType="numeric"
                   onPressRight={() => setVisible(!isVisible)}
+                  // error={'hi'}
+                  // errorStyle={{right: 304}}
                 />
                 <TouchableOpacity
                   activeOpacity={0.7}
@@ -129,12 +132,12 @@ const LoginScreen = ({ navigation }) => {
       </ScrollView>
       <ModalPopup visible={showModal} onClose={toggleModal}>
         <View style={{ alignItems: "center" }}>
-            <TouchableOpacity onPress={toggleModal}>
-              <Image
-                source={require("../../assets/images/x.png")}
-                style={styles.xImageStyle}
-              />
-            </TouchableOpacity>
+          <TouchableOpacity onPress={toggleModal}>
+            <Image
+              source={require("../../assets/images/x.png")}
+              style={styles.xImageStyle}
+            />
+          </TouchableOpacity>
         </View>
         <View style={{ alignItems: "center" }}>
           <Image
@@ -156,7 +159,17 @@ const LoginScreen = ({ navigation }) => {
         <View
           style={{ justifyContent: "center", alignItems: "center", bottom: 10 }}
         >
-          <MyCustomPhoneInput maxLength={10} minLength={10} />
+          {/* <MyCustomPhoneInput maxLength={10} minLength={10} /> */}
+          <TextInputWithLabel
+            placeholder="Phone Number"
+            KeyboardType="numeric"
+            leftIcon={imagePath.phoneIcon}
+            leftImage={{right: 224}}
+            inputContainer={{bottom: 30, paddingHorizontal: 10}}
+            innerTextStyle={{width: '100%', paddingLeft: 45, left: 15}}
+            // error={'hi'}
+            // errorStyle={{right: 227}}
+          />
         </View>
 
         <View>
@@ -167,7 +180,8 @@ const LoginScreen = ({ navigation }) => {
               paddingVertical: 10,
               paddingHorizontal: 20,
               alignSelf: "center",
-              marginTop: 15,
+              // marginTop: 15,
+              bottom: 5,
               left: 1,
             }}
             onPress={handleGenerateOTP}

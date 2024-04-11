@@ -76,6 +76,8 @@ const SignUp = ({ navigation }) => {
                   leftIcon={imagePath.lockIcon}
                   onPressRight={() => setVisible(!isVisible)}
                   value={password}
+                  // error={'hi'}
+
                   // onChangeText={(password) => setPassword(password)}
                 />
                 <TextInputWithLabel
@@ -85,6 +87,7 @@ const SignUp = ({ navigation }) => {
                   leftIcon={imagePath.lockIcon}
                   onPressRight={() => setVisible(!isVisible)}
                   value={confirmPassword}
+                  // error={'hi'}
                   // onChangeText={(password) => setConfirmPassword(password)}
                   // passwordsMatch={password === confirmPassword}
                 />
