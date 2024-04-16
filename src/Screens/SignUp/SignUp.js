@@ -85,7 +85,7 @@ const SignUp = ({ navigation }) => {
                 <View style={{ bottom: 15 }}>
                   <TextInputWithLabel
                     placeholder="Username"
-                    KeyboardType="email-address"
+                    KeyboardType="default"
                     leftIcon={imagePath.userIcon}
                     // error={"hi"}
                   />
@@ -99,6 +99,7 @@ const SignUp = ({ navigation }) => {
                   />
                   <TextInputWithLabel
                     placeholder="Password"
+                    keyboardType="visible-password"
                     secureTextEntry={isVisible}
                     rightIcon={
                       isVisible ? imagePath.hideEye : imagePath.showEye

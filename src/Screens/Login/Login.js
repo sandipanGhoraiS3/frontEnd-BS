@@ -28,11 +28,21 @@ import ModalPopup from "../../Components/modelPopup";
 import { OtpInput } from "react-native-otp-entry";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import MyCustomPhoneInput from "../../Components/MyCustomPhoneInput";
+import axios from 'axios';
+// import { user_login } from "../../api/AuthApi";
+import { handle_login } from "../../api/AuthApi";
 
 const LoginScreen = ({ navigation }) => {
   const [isVisible, setVisible] = useState(true);
   const [showModal, setShowModal] = useState(false);
   const [otpModalVisible, setOtpModalVisible] = useState(false);
+
+  // let cors = require("cors");
+  // app.use(cors());
+
+  // constant for login api connection 
+  const [uname, setUname] = useState('')
+  const [pword, setPword] = useState('')
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -51,6 +61,44 @@ const LoginScreen = ({ navigation }) => {
     // Navigate back to login screen
     toggleOtpModal();
     navigation.navigate(navigationStrings.FORGETPASSWORD);
+  };
+
+  // api function
+  const handleUname = (text) => {
+    // setUname()
+    console.log(text)
+  }
+  const handlePword = (text) => {
+    console.log(text)
+  }
+
+  // const fetchData = async (uname, pword) => {
+  //   try {
+  //     const data = {
+  //       username: uname,
+  //       password: pword
+  //     };
+  //     console.log(data);
+
+  //     const response = await user_login(data);
+  //     navigation.navigate(navigationStrings.HOME)
+      
+  //   } catch (error) {
+  //     console.error('Error fetching data: ', error);
+  //   }
+  // };
+  const fetchData = async (uname, pword) => {
+    try {
+      // Call handle_login function to handle login or token refresh
+      const response = await handle_login({ username: uname, password: pword });
+      
+      // Navigate to the home screen or perform any other actions upon successful login
+      navigation.navigate(navigationStrings.HOME);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      // Handle login errors, such as invalid credentials or session expiration
+      // You can display an error message to the user or perform any other actions
+    }
   };
 
   return (
@@ -89,6 +137,8 @@ const LoginScreen = ({ navigation }) => {
                   placeholder="Username"
                   KeyboardType="email-address"
                   leftIcon={imagePath.userIcon}
+                  value={uname}
+                  onChangeText={text => setUname(text)}
                   // error={'hi'}
                 />
                 <TextInputWithLabel
@@ -98,6 +148,8 @@ const LoginScreen = ({ navigation }) => {
                   leftIcon={imagePath.passwordIcon}
                   KeyboardType="numeric"
                   onPressRight={() => setVisible(!isVisible)}
+                  value={pword}
+                  onChangeText={text => setPword(text)}
                   // error={'hi'}
                   // errorStyle={{right: 304}}
                 />
@@ -111,7 +163,8 @@ const LoginScreen = ({ navigation }) => {
                 <View style={styles.inputContainer}>
                   <ButtonComp
                     btnText={"Login"}
-                    onPress={() => navigation.navigate(navigationStrings.HOME)}
+                    // onPress={() => navigation.navigate(navigationStrings.HOME)}
+                    onPress={() => fetchData(uname, pword)}
                     btnStyle={{ left: 31, marginTop: 15 }}
                   />
                 </View>
