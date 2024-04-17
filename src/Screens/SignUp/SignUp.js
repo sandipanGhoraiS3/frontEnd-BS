@@ -24,6 +24,7 @@ import navigationStrings from "../../Constans/navigationStrings";
 import ModalPopup from "../../Components/modelPopup";
 import { OtpInput } from "react-native-otp-entry";
 import CheckBoxCustom from "../../Components/CheckBoxCustom";
+import ApiManager from "../../api/ApiManager";
 
 const SignUp = ({ navigation }) => {
   const [isVisible, setVisible] = useState(true);
@@ -31,23 +32,74 @@ const SignUp = ({ navigation }) => {
   const [otpModalVisible, setOtpModalVisible] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
 
+  // variable create for api connection
+  const [uname, setUname] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [pwd, setPwd] = useState("");
+  const [otp, setOtp] = useState("");
+
   const toggleModal = () => {
     setShowModal(!showModal);
   };
-  const toggleOtpModal = () => {
-    setOtpModalVisible(!otpModalVisible);
+  const toggleOtpModal = async () => {
+    console.log("USER NAME: ", uname);
+    console.log("PHONE NUMBER: ", phoneNumber);
+    console.log("PASSWORD: ", pwd);
+    console.log("IS ADMIN: ", isChecked);
+
+    try {
+      const response = await ApiManager.post("/api/send_otp_login/", {
+        phone_number: phoneNumber,
+      });
+
+      if (response.status === 200) {
+        setOtpModalVisible(!otpModalVisible);
+      } else {
+        Alert.alert("Error", "OTP sending error.");
+      }
+    } catch {
+      console.error("Error fetching data:", error);
+      Alert.alert("Error", "Failed to sending OTP");
+    }
   };
 
-  const handleGenerateOTP = () => {
-    // Add logic here to verify OTP
-
-    // Navigate back to login screen
-    toggleModal();
-    navigation.navigate(navigationStrings.LOGIN);
+  const handleOkay = async () => {
+    try {
+      const response = await ApiManager.post("/api/register/", {
+        username: uname,
+        phone_number: phoneNumber,
+        password: pwd,
+        is_admin: isChecked,
+      });
+      
+      if (response.status === 201) {
+        toggleModal();
+        navigation.navigate(navigationStrings.LOGIN);
+      } else {
+        Alert.alert("Error", "User data not added");
+      }
+    } catch {
+      console.error("Error fetching data:", error);
+      Alert.alert("Error", "User data not added in database, API issue");
+    }
   };
-  const handleVerifyOTP = () => {
-    toggleModal();
-    toggleOtpModal();
+
+  const handleVerifyOTP = async () => {
+    try {
+      const response = await ApiManager.get(
+        `/api/verify_otp_login/${phoneNumber}/${otp}/`
+      );
+      if (response.status === 200) {
+        toggleModal();
+        // toggleOtpModal();
+        setOtpModalVisible(!otpModalVisible);
+      } else {
+        Alert.alert("Error", "OTP does not match. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      Alert.alert("Error", "Failed to verify OTP. Please try again.");
+    }
   };
 
   return (
@@ -87,6 +139,8 @@ const SignUp = ({ navigation }) => {
                     placeholder="Username"
                     KeyboardType="default"
                     leftIcon={imagePath.userIcon}
+                    value={uname}
+                    onChangeText={(text) => setUname(text)}
                     // error={"hi"}
                   />
                   <TextInputWithLabel
@@ -94,6 +148,8 @@ const SignUp = ({ navigation }) => {
                     keyboardType="numeric"
                     maxLength={10}
                     leftIcon={imagePath.phoneIcon}
+                    value={phoneNumber}
+                    onChangeText={(text) => setPhoneNumber(text)}
                     // error={'hi'}
                     // errorStyle={{right: 285}}
                   />
@@ -106,6 +162,8 @@ const SignUp = ({ navigation }) => {
                     }
                     leftIcon={imagePath.passwordIcon}
                     onPressRight={() => setVisible(!isVisible)}
+                    value={pwd}
+                    onChangeText={(text) => setPwd(text)}
                     // error={'hi'}
                     // errorStyle={{right: 190}}
                   />
@@ -245,7 +303,7 @@ const SignUp = ({ navigation }) => {
 
         <View>
           <View style={{ marginVertical: 8, bottom: 15 }}>
-            <OtpInput
+            {/* <OtpInput
               numberOfDigits={4}
               onTextChange={(text) => console.log(text)}
               focusColor={"#8AC8B3"}
@@ -257,6 +315,19 @@ const SignUp = ({ navigation }) => {
                   borderRadius: 10,
                   color: "red",
                 },
+              }}
+            /> */}
+            <TextInput
+              keyboardType="numeric"
+              maxLength={4}
+              value={otp}
+              onChangeText={(text) => setOtp(text)}
+              style={{
+                borderWidth: 1,
+                borderColor: "#ccc",
+                borderRadius: 5,
+                padding: 10,
+                marginBottom: 10,
               }}
             />
           </View>
@@ -291,7 +362,7 @@ const SignUp = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </ModalPopup>
-      <ModalPopup visible={showModal} onClose={toggleOtpModal}>
+      <ModalPopup visible={showModal} onClose={toggleModal}>
         <View style={{ alignItems: "center" }}>
           <View style={{ alignItems: "center" }}>
             <Image
@@ -340,7 +411,7 @@ const SignUp = ({ navigation }) => {
                 marginTop: 8,
                 left: 1,
               }}
-              onPress={handleGenerateOTP}
+              onPress={handleOkay}
             >
               <Text
                 style={{

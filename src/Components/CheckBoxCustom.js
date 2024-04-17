@@ -14,8 +14,9 @@ import ButtonComp from "./ButtonComp";
 import Toast from "react-native-toast-message";
 import TextInputWithLabel from "./TextInputWithLabel";
 // import Animated from 'react-native/Libraries/Animated';
+import ApiManager from "../api/ApiManager";
 
-const CheckBoxCustom = ({ isChecked, onChange, label }) => {
+const CheckBoxCustom = ({ isChecked, onChange, label, phoneNumber }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [secretCode, setSecretCode] = useState("");
 
@@ -24,23 +25,40 @@ const CheckBoxCustom = ({ isChecked, onChange, label }) => {
     setModalVisible(!isChecked); // Open modal if checkbox is checked
   };
 
-  const handleVerifyCode = () => {
-    // Perform verification of the secret code here
+  const handleVerifyCode = async () => {
+    // Make an HTTP request to your API
 
-    if (secretCode === 123456) {
-      Toast.show({
-        type: "success",
-        text1: "Successfully verified",
-        autoHide: true,
-        visibilityTime: 2000,
-        position: "bottom",
-        bottomOffset: 550,
-      });
-      setModalVisible(false); // Close the modal
-    } else {
+    try {
+      const response = await ApiManager.get(
+        `/api/check_passcode/${secretCode}/`
+      );
+
+      if (response.status === 200) {
+        Toast.show({
+          type: "success",
+          text1: "Successfully verified",
+          autoHide: true,
+          visibilityTime: 2000,
+          position: "bottom",
+          bottomOffset: 550,
+        });
+        setModalVisible(false); // Close the modal
+      } else {
+        Toast.show({
+          type: "error",
+          text1: "Wrong Secret code",
+          autoHide: true,
+          visibilityTime: 2000,
+          position: "bottom",
+          bottomOffset: 550,
+        });
+      }
+    } catch {
+      console.error("Error verifying secret code:", error);
+      // Show an error message
       Toast.show({
         type: "error",
-        text1: "Wrong Secret code",
+        text1: "An error occurred",
         autoHide: true,
         visibilityTime: 2000,
         position: "bottom",
@@ -156,6 +174,8 @@ const CheckBoxCustom = ({ isChecked, onChange, label }) => {
             keyboardType="numeric"
             maxLength={6}
             inputContainer={{ bottom: 30 }}
+            value={secretCode}
+            onChangeText={(text) => setSecretCode(text)}
             // error={"hi"}
             errorStyle={{ backgroundColor: "red", left: 100 }}
             innerTextStyle={{ fontSize: 25 }}

@@ -59,7 +59,7 @@ const LoginScreen = ({ navigation }) => {
 
     try {
       const response = await ApiManager.get(
-        `/api/verify_otp/${phoneNumber}/${otp}/`
+        `/api/verify_otp_forgot/${phoneNumber}/${otp}/`
       );
       if (response.status === 200) {
         toggleOtpModal();
@@ -89,7 +89,7 @@ const LoginScreen = ({ navigation }) => {
         alert("Please enter your phone number");
         return;
       }
-      const response = await ApiManager.post("/api/send_otp/", {
+      const response = await ApiManager.post("/api/send_otp_forgot/", {
         phone_number: phoneNumber,
       });
 
