@@ -28,7 +28,8 @@ import ModalPopup from "../../Components/modelPopup";
 import { OtpInput } from "react-native-otp-entry";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import MyCustomPhoneInput from "../../Components/MyCustomPhoneInput";
-import axios from 'axios';
+import axios from "axios";
+import ApiManager from "../../api/ApiManager";
 // import { user_login } from "../../api/AuthApi";
 import { handle_login } from "../../api/AuthApi";
 
@@ -37,12 +38,13 @@ const LoginScreen = ({ navigation }) => {
   const [showModal, setShowModal] = useState(false);
   const [otpModalVisible, setOtpModalVisible] = useState(false);
 
-  // let cors = require("cors");
-  // app.use(cors());
+  // constant for login api connection
+  const [uname, setUname] = useState("");
+  const [pword, setPword] = useState("");
 
-  // constant for login api connection 
-  const [uname, setUname] = useState('')
-  const [pword, setPword] = useState('')
+  // forgot password
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [otp, setOtp] = useState("");
 
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -51,53 +53,52 @@ const LoginScreen = ({ navigation }) => {
     setOtpModalVisible(!otpModalVisible);
   };
 
-  const handleGenerateOTP = () => {
-    toggleModal();
-    toggleOtpModal();
+  const handleVerifyOTP = async (phoneNumber, otp) => {
+    console.log("phone: ", phoneNumber);
+    console.log("otp: ", otp);
+
+    try {
+      const response = await ApiManager.get(
+        `/api/verify_otp/${phoneNumber}/${otp}/`
+      );
+      if (response.status === 200) {
+        toggleOtpModal();
+        navigation.navigate(navigationStrings.FORGETPASSWORD, {phoneNumber});
+      } else {
+        Alert.alert("Error", "OTP does not match. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      Alert.alert("Error", "Failed to verify OTP. Please try again.");
+    }
   };
-  const handleVerifyOTP = () => {
-    // Add logic here to verify OTP
 
-    // Navigate back to login screen
-    toggleOtpModal();
-    navigation.navigate(navigationStrings.FORGETPASSWORD);
-  };
-
-  // api function
-  const handleUname = (text) => {
-    // setUname()
-    console.log(text)
-  }
-  const handlePword = (text) => {
-    console.log(text)
-  }
-
-  // const fetchData = async (uname, pword) => {
-  //   try {
-  //     const data = {
-  //       username: uname,
-  //       password: pword
-  //     };
-  //     console.log(data);
-
-  //     const response = await user_login(data);
-  //     navigation.navigate(navigationStrings.HOME)
-      
-  //   } catch (error) {
-  //     console.error('Error fetching data: ', error);
-  //   }
-  // };
+  // handle login api function
   const fetchData = async (uname, pword) => {
     try {
-      // Call handle_login function to handle login or token refresh
       const response = await handle_login({ username: uname, password: pword });
-      
-      // Navigate to the home screen or perform any other actions upon successful login
       navigation.navigate(navigationStrings.HOME);
     } catch (error) {
-      console.error('Error fetching data:', error);
-      // Handle login errors, such as invalid credentials or session expiration
-      // You can display an error message to the user or perform any other actions
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const handleGenerateOTP = async () => {
+    try {
+      if (!phoneNumber) {
+        alert("Please enter your phone number");
+        return;
+      }
+      const response = await ApiManager.post("/api/send_otp/", {
+        phone_number: phoneNumber,
+      });
+
+      console.log("OTP Sent:", response.data);
+      toggleModal();
+      toggleOtpModal();
+    } catch (error) {
+      console.error("Error sending OTP:", error);
+      alert("Failed to send OTP. Please try again later.");
     }
   };
 
@@ -138,7 +139,7 @@ const LoginScreen = ({ navigation }) => {
                   KeyboardType="email-address"
                   leftIcon={imagePath.userIcon}
                   value={uname}
-                  onChangeText={text => setUname(text)}
+                  onChangeText={(text) => setUname(text)}
                   // error={'hi'}
                 />
                 <TextInputWithLabel
@@ -149,7 +150,7 @@ const LoginScreen = ({ navigation }) => {
                   KeyboardType="numeric"
                   onPressRight={() => setVisible(!isVisible)}
                   value={pword}
-                  onChangeText={text => setPword(text)}
+                  onChangeText={(text) => setPword(text)}
                   // error={'hi'}
                   // errorStyle={{right: 304}}
                 />
@@ -216,10 +217,12 @@ const LoginScreen = ({ navigation }) => {
           <TextInputWithLabel
             placeholder="Phone Number"
             KeyboardType="numeric"
+            value={phoneNumber}
             leftIcon={imagePath.phoneIcon}
-            leftImage={{right: 224}}
-            inputContainer={{bottom: 30, paddingHorizontal: 10}}
-            innerTextStyle={{width: '100%', paddingLeft: 45, left: 15}}
+            onChangeText={(text) => setPhoneNumber(text)}
+            leftImage={{ right: 224 }}
+            inputContainer={{ bottom: 30, paddingHorizontal: 10 }}
+            innerTextStyle={{ width: "100%", paddingLeft: 45, left: 15 }}
             // error={'hi'}
             // errorStyle={{right: 227}}
           />
@@ -295,9 +298,10 @@ const LoginScreen = ({ navigation }) => {
           A verification code has been sent to your phone +91-XXXXX XXX23
         </Text>
         <View style={{ marginVertical: 8, bottom: 15 }}>
-          <OtpInput
+          {/* <OtpInput
             numberOfDigits={4}
-            onTextChange={(text) => console.log(text)}
+            value={otp}
+            onChangeText={handleOtpChange} // This function logs the OTP value
             focusColor={"#8AC8B3"}
             theme={{
               pincodeContainer: {
@@ -307,6 +311,19 @@ const LoginScreen = ({ navigation }) => {
                 borderRadius: 10,
                 color: "red",
               },
+            }}
+          /> */}
+          <TextInput
+            keyboardType="numeric"
+            maxLength={4}
+            value={otp}
+            onChangeText={(text) => setOtp(text)}
+            style={{
+              borderWidth: 1,
+              borderColor: "#ccc",
+              borderRadius: 5,
+              padding: 10,
+              marginBottom: 10,
             }}
           />
         </View>
@@ -334,7 +351,7 @@ const LoginScreen = ({ navigation }) => {
         <View>
           <TouchableOpacity
             style={styles.verifyOtpContainer}
-            onPress={handleVerifyOTP}
+            onPress={() => handleVerifyOTP(phoneNumber, otp)}
           >
             <Text style={styles.verifyOtpStyle}>Verify OTP</Text>
           </TouchableOpacity>

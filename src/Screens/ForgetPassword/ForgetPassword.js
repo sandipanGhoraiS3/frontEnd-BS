@@ -21,15 +21,37 @@ import { moderateVerticalScale } from "react-native-size-matters";
 import ButtonComp from "../../Components/ButtonComp";
 import navigationStrings from "../../Constans/navigationStrings";
 import ModalPopup from "../../Components/modelPopup";
+import ApiManager from "../../api/ApiManager";
+import axios from "axios";
 
-const SignUp = ({ navigation }) => {
+const ForgotPassword = ({ navigation, route }) => {
   const [isVisible, setVisible] = useState(true);
   const [showModal, setShowModal] = useState(false);
-  const [password, setPassword] = useState(""); // to store password
-  const [confirmPassword, setConfirmPassword] = useState(""); // to store password
+  const [pwd, setPwd] = useState(""); // to store password
+  const [confirmPwd, setConfirmPwd] = useState(""); // to store password
 
-  const toggleModal = () => {
-    setShowModal(!showModal);
+  const { phoneNumber } = route.params;
+
+  const toggleModal = async () => {
+    console.log("pass: ", pwd);
+    console.log("Confirmpass: ", confirmPwd);
+
+    try {
+      const response = await ApiManager.post("/api/forgot_password/", {
+        phone_number: phoneNumber,
+        new_password: pwd,
+        confirm_password: confirmPwd,
+      });
+      if (response.status === 200) {
+        console.log("password updated successfully");
+        setShowModal(!showModal);
+      } else {
+        Alert.alert("Error", "password not updated");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      Alert.alert("Error", "Failed to verify OTP. Please try again.");
+    }
   };
 
   const nextNavigationPage = () => {
@@ -75,10 +97,9 @@ const SignUp = ({ navigation }) => {
                   rightIcon={isVisible ? imagePath.hideEye : imagePath.showEye}
                   leftIcon={imagePath.lockIcon}
                   onPressRight={() => setVisible(!isVisible)}
-                  value={password}
+                  value={pwd}
+                  onChangeText={(text) => setPwd(text)}
                   // error={'hi'}
-
-                  // onChangeText={(password) => setPassword(password)}
                 />
                 <TextInputWithLabel
                   placeholder="Confirm Password"
@@ -86,13 +107,17 @@ const SignUp = ({ navigation }) => {
                   rightIcon={isVisible ? imagePath.hideEye : imagePath.showEye}
                   leftIcon={imagePath.lockIcon}
                   onPressRight={() => setVisible(!isVisible)}
-                  value={confirmPassword}
+                  value={confirmPwd}
+                  onChangeText={(text) => setConfirmPwd(text)}
                   // error={'hi'}
-                  // onChangeText={(password) => setConfirmPassword(password)}
                   // passwordsMatch={password === confirmPassword}
                 />
                 <View style={{ marginTop: 60 }}>
-                  <ButtonComp btnText={"Update"} onPress={toggleModal} />
+                  <ButtonComp
+                    btnText={"Update"}
+                    // onPress={() => toggleModal(pwd, confirmPwd)}
+                    onPress={toggleModal}
+                  />
                 </View>
               </View>
               <View style={styles.lowerContainer}>
@@ -178,4 +203,4 @@ const SignUp = ({ navigation }) => {
   );
 };
 
-export default SignUp;
+export default ForgotPassword;
